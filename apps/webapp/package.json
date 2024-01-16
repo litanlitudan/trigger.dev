@@ -66,8 +66,8 @@
     "@tabler/icons-react": "^2.39.0",
     "@tailwindcss/container-queries": "^0.1.1",
     "@team-plain/typescript-sdk": "^3.5.0",
-    "@trigger.dev/companyicons": "^1.5.35",
     "@trigger.dev/billing": "^1.0.10",
+    "@trigger.dev/companyicons": "^1.5.35",
     "@trigger.dev/core": "workspace:*",
     "@trigger.dev/core-backend": "workspace:*",
     "@trigger.dev/database": "workspace:*",
@@ -125,6 +125,7 @@
     "tailwindcss-animate": "^1.0.5",
     "tiny-invariant": "^1.2.0",
     "ulid": "^2.3.0",
+    "ulidx": "^2.2.1",
     "zod": "3.22.3",
     "zod-error": "1.5.0",
     "zod-validation-error": "^1.5.0"

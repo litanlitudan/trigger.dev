@@ -378,6 +378,7 @@ model RuntimeEnvironment {
   webhookRequestDeliveries WebhookRequestDelivery[]
   backgroundWorkers        BackgroundWorker[]
   backgroundWorkerTasks    BackgroundWorkerTask[]
+  TaskRun                  TaskRun[]
 
   @@unique([projectId, slug, orgMemberId])
   @@unique([projectId, shortcode])
@@ -414,6 +415,7 @@ model Project {
   webhooks              Webhook[]
   backgroundWorkers     BackgroundWorker[]
   backgroundWorkerTasks BackgroundWorkerTask[]
+  TaskRun               TaskRun[]
 }
 
 model Endpoint {
@@ -1481,7 +1483,8 @@ model BackgroundWorker {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tasks BackgroundWorkerTask[]
+  tasks   BackgroundWorkerTask[]
+  TaskRun TaskRun[]
 
   @@unique([projectId, runtimeEnvironmentId, version])
 }
@@ -1502,8 +1505,54 @@ model BackgroundWorkerTask {
   runtimeEnvironment   RuntimeEnvironment @relation(fields: [runtimeEnvironmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   runtimeEnvironmentId String
 
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  TaskRun   TaskRun[]
+
+  @@unique([workerId, slug])
+}
+
+model TaskRun {
+  id String @id @default(cuid())
+
+  externalRef    String @unique
+  idempotencyKey String
+  taskIdentifier String
+
+  payload     String
+  payloadType String @default("JSON")
+
+  context Json?
+
+  status TaskRunStatus @default(PENDING)
+
+  runtimeEnvironment   RuntimeEnvironment @relation(fields: [runtimeEnvironmentId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  runtimeEnvironmentId String
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  projectId String
+
+  /// This will be set once the background worker has been assigned
+  backgroundWorker   BackgroundWorker? @relation(fields: [backgroundWorkerId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  backgroundWorkerId String?
+
+  /// This will be set once the background worker has been assigned
+  backgroundWorkerTask   BackgroundWorkerTask? @relation(fields: [backgroundWorkerTaskId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  backgroundWorkerTaskId String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([workerId, slug])
+  startedAt DateTime?
+
+  @@unique([runtimeEnvironmentId, idempotencyKey])
+}
+
+enum TaskRunStatus {
+  PENDING
+  EXECUTING
+  PAUSED
+  FAILED
+  CANCELED
+  COMPLETED
 }
