@@ -1471,6 +1471,8 @@ model DataMigration {
 model BackgroundWorker {
   id String @id @default(cuid())
 
+  contentHash String
+
   project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   projectId String
 
@@ -1483,8 +1485,8 @@ model BackgroundWorker {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tasks   BackgroundWorkerTask[]
-  TaskRun TaskRun[]
+  tasks BackgroundWorkerTask[]
+  runs  TaskRun[]
 
   @@unique([projectId, runtimeEnvironmentId, version])
 }
