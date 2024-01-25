@@ -23,6 +23,7 @@ export class ProjectPresenter {
         organizationId: true,
         createdAt: true,
         updatedAt: true,
+        externalRef: true,
         jobs: {
           select: {
             id: true,
@@ -139,6 +140,7 @@ export class ProjectPresenter {
       slug: project.slug,
       name: project.name,
       organizationId: project.organizationId,
+      externalRef: project.externalRef,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
       hasInactiveExternalTriggers: project._count.sources > 0,
