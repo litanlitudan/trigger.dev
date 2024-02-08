@@ -146,6 +146,7 @@ importers:
       '@trigger.dev/core': workspace:*
       '@trigger.dev/core-backend': workspace:*
       '@trigger.dev/database': workspace:*
+      '@trigger.dev/otlp-importer': workspace:*
       '@trigger.dev/sdk': workspace:*
       '@trigger.dev/tailwind-config': workspace:*
       '@trigger.dev/yalt': workspace:*
@@ -297,6 +298,7 @@ importers:
       '@trigger.dev/core': link:../../packages/core
       '@trigger.dev/core-backend': link:../../packages/core-backend
       '@trigger.dev/database': link:../../packages/database
+      '@trigger.dev/otlp-importer': link:../../packages/otlp-importer
       '@trigger.dev/sdk': link:../../packages/trigger-sdk
       '@trigger.dev/yalt': link:../../packages/yalt
       '@types/pg': 8.6.6
@@ -440,7 +442,7 @@ importers:
     devDependencies:
       eslint: 8.31.0
       eslint-config-prettier: 8.6.0_eslint@8.31.0
-      eslint-config-turbo: 1.11.3_eslint@8.31.0
+      eslint-config-turbo: 1.12.3_eslint@8.31.0
       eslint-plugin-react: 7.31.8_eslint@8.31.0
       typescript: 4.9.4
 
@@ -1057,6 +1059,7 @@ importers:
   packages/core:
     specifiers:
       '@opentelemetry/api': ^1.7.0
+      '@opentelemetry/api-logs': ^0.48.0
       '@opentelemetry/auto-instrumentations-node': ^0.40.3
       '@opentelemetry/exporter-collector': ^0.25.0
       '@opentelemetry/exporter-trace-otlp-http': ^0.48.0
@@ -1081,6 +1084,7 @@ importers:
       zod-error: 1.5.0
     dependencies:
       '@opentelemetry/api': 1.7.0
+      '@opentelemetry/api-logs': 0.48.0
       '@opentelemetry/auto-instrumentations-node': 0.40.3_@opentelemetry+api@1.7.0
       '@opentelemetry/exporter-collector': 0.25.0_@opentelemetry+api@1.7.0
       '@opentelemetry/exporter-trace-otlp-http': 0.48.0_@opentelemetry+api@1.7.0
@@ -1332,6 +1336,35 @@ importers:
       tsx: 3.12.2
       typescript: 5.3.2
 
+  packages/otlp-importer:
+    specifiers:
+      '@trigger.dev/tsconfig': workspace:*
+      '@trigger.dev/tsup': workspace:*
+      '@types/jest': ^29.5.3
+      '@types/node': '16'
+      jest: ^29.6.2
+      long: ^5.2.3
+      protobufjs: ^7.2.6
+      rimraf: ^3.0.2
+      ts-jest: ^29.1.1
+      ts-proto: ^1.167.3
+      tsup: ^8.0.1
+      typescript: ^5.3.0
+    dependencies:
+      long: 5.2.3
+      protobufjs: 7.2.6
+    devDependencies:
+      '@trigger.dev/tsconfig': link:../../config-packages/tsconfig
+      '@trigger.dev/tsup': link:../../config-packages/tsup
+      '@types/jest': 29.5.3
+      '@types/node': 16.18.11
+      jest: 29.6.2_@types+node@16.18.11
+      rimraf: 3.0.2
+      ts-jest: 29.1.1_5rpxlvaikdwu64qu6f72wnb6nm
+      ts-proto: 1.167.3
+      tsup: 8.0.1_a5ztaafw5l4qfghy2hjjuynb34_typescript@5.3.3
+      typescript: 5.3.3
+
   packages/react:
     specifiers:
       '@tanstack/react-query': 5.0.0-beta.2
@@ -1439,6 +1472,7 @@ importers:
   packages/trigger-sdk:
     specifiers:
       '@opentelemetry/api': ^1.7.0
+      '@opentelemetry/api-logs': ^0.48.0
       '@opentelemetry/semantic-conventions': ^1.21.0
       '@trigger.dev/core': workspace:^2.3.11
       '@trigger.dev/core-backend': workspace:^2.3.11
@@ -1469,6 +1503,7 @@ importers:
       zod: 3.22.3
     dependencies:
       '@opentelemetry/api': 1.7.0
+      '@opentelemetry/api-logs': 0.48.0
       '@opentelemetry/semantic-conventions': 1.21.0
       '@trigger.dev/core': link:../core
       '@trigger.dev/core-backend': link:../core-backend
@@ -11850,46 +11885,36 @@ packages:
 
   /@protobufjs/aspromise/1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
-    dev: false
 
   /@protobufjs/base64/1.1.2:
     resolution: {integrity: sha512-AZkcAA5vnN/v4PDqKyMR5lx7hZttPDgClv83E//FMNhR2TMcLUhfRUBHCmSl0oi9zMgDDqRUJkSxO3wm85+XLg==}
-    dev: false
 
   /@protobufjs/codegen/2.0.4:
     resolution: {integrity: sha512-YyFaikqM5sH0ziFZCN3xDC7zeGaB/d0IUb9CATugHWbd1FRFwWwt4ld4OYMPWu5a3Xe01mGAULCdqhMlPl29Jg==}
-    dev: false
 
   /@protobufjs/eventemitter/1.1.0:
     resolution: {integrity: sha512-j9ednRT81vYJ9OfVuXG6ERSTdEL1xVsNgqpkxMsbIabzSo3goCjDIveeGv5d03om39ML71RdmrGNjG5SReBP/Q==}
-    dev: false
 
   /@protobufjs/fetch/1.1.0:
     resolution: {integrity: sha512-lljVXpqXebpsijW71PZaCYeIcE5on1w5DlQy5WH6GLbFryLUrBD4932W/E2BSpfRJWseIL4v/KPgBFxDOIdKpQ==}
     dependencies:
       '@protobufjs/aspromise': 1.1.2
       '@protobufjs/inquire': 1.1.0
-    dev: false
 
   /@protobufjs/float/1.0.2:
     resolution: {integrity: sha512-Ddb+kVXlXst9d+R9PfTIxh1EdNkgoRe5tOX6t01f1lYWOvJnSPDBlG241QLzcyPdoNTsblLUdujGSE4RzrTZGQ==}
-    dev: false
 
   /@protobufjs/inquire/1.1.0:
     resolution: {integrity: sha512-kdSefcPdruJiFMVSbn801t4vFK7KB/5gd2fYvrxhuJYg8ILrmn9SKSX2tZdV6V+ksulWqS7aXjBcRXl3wHoD9Q==}
-    dev: false
 
   /@protobufjs/path/1.1.2:
     resolution: {integrity: sha512-6JOcJ5Tm08dOHAbdR3GrvP+yUUfkjG5ePsHYczMFLq3ZmMkAD98cDgcT2iA1lJ9NVwFd4tH/iSSoe44YWkltEA==}
-    dev: false
 
   /@protobufjs/pool/1.1.0:
     resolution: {integrity: sha512-0kELaGSIDBKvcgS4zkjz1PeddatrjYcmMWOlAuAPwAeccUrPHdUqo/J6LiymHHEiJT5NrF1UVwxY14f+fy4WQw==}
-    dev: false
 
   /@protobufjs/utf8/1.1.0:
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
-    dev: false
 
   /@radix-ui/number/1.0.0:
     resolution: {integrity: sha512-Ofwh/1HX69ZfJRiRBMTy7rgjAzHmwe4kW9C9Y99HTRUcYLUuVT0KESFj15rPjRgKJs20GPq8Bm5aEDJ8DuA3vA==}
@@ -19462,6 +19487,11 @@ packages:
       xtend: 4.0.2
     dev: true
 
+  /case-anything/2.1.13:
+    resolution: {integrity: sha512-zlOQ80VrQ2Ue+ymH5OuM/DlDq64mEm+B9UTdHULv5osUMD6HalNTblf2b1u/m6QecjsnOkBpqVZ+XPwIVsy7Ng==}
+    engines: {node: '>=12.13'}
+    dev: true
+
   /case-sensitive-paths-webpack-plugin/2.4.0:
     resolution: {integrity: sha512-roIFONhcxog0JSSWbvVAh3OocukmSgpqOH6YpMkCvav/ySIV3JKg4Dc8vYtQjYi/UxpNE36r/9v+VqTQqgkYmw==}
     engines: {node: '>=4'}
@@ -20741,6 +20771,12 @@ packages:
     resolution: {integrity: sha512-reYkTUJAZb9gUuZ2RvVCNhVHdg62RHnJ7WJl8ftMi4diZ6NWlciOzQN88pUhSELEwflJht4oQDv0F0BMlwaYtA==}
     engines: {node: '>=8'}
 
+  /detect-libc/1.0.3:
+    resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
+    engines: {node: '>=0.10'}
+    hasBin: true
+    dev: true
+
   /detect-libc/2.0.2:
     resolution: {integrity: sha512-UX6sGumvvqSaXgdKGUsgZWqcUyIXZ/vZTrlRT/iobiKhGL0zL4d3osHj3uqllWJK+i+sixDS/3COVEOFbupFyw==}
     engines: {node: '>=8'}
@@ -20952,6 +20988,12 @@ packages:
     resolution: {integrity: sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==}
     engines: {node: '>=10'}
     dev: false
+
+  /dprint-node/1.0.8:
+    resolution: {integrity: sha512-iVKnUtYfGrYcW1ZAlfR/F59cUVL8QIhWoBJoSjkkdua/dkWIgjZfiLMeTjiB06X0ZLkQ0M2C1VbUj/CxkIf1zg==}
+    dependencies:
+      detect-libc: 1.0.3
+    dev: true
 
   /dset/3.1.2:
     resolution: {integrity: sha512-g/M9sqy3oHe477Ar4voQxWtaPIFw1jTdKZuomOjhCcBx9nHUNn0pu6NopuFFrTh/TRZIKEj+76vLWFu9BNKk+Q==}
@@ -21846,13 +21888,13 @@ packages:
       eslint: 8.45.0
     dev: true
 
-  /eslint-config-turbo/1.11.3_eslint@8.31.0:
-    resolution: {integrity: sha512-v7CHpAHodBKlj+r+R3B2DJlZbCjpZLnK7gO/vCRk/Lc+tlD/f04wM6rmHlerevOlchtmwARilRLBnmzNLffTyQ==}
+  /eslint-config-turbo/1.12.3_eslint@8.31.0:
+    resolution: {integrity: sha512-Q46MEOiNJpJWC3Et5/YEuIYYhbOieS04yZwQOinO2hpZw3folEXV+hbwVo8M+ap/q8gtpjIWiRMZ1A4QxmhEqQ==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
       eslint: 8.31.0
-      eslint-plugin-turbo: 1.11.3_eslint@8.31.0
+      eslint-plugin-turbo: 1.12.3_eslint@8.31.0
     dev: true
 
   /eslint-doc-generator/1.4.3_eslint@8.45.0:
@@ -22555,8 +22597,8 @@ packages:
       - typescript
     dev: true
 
-  /eslint-plugin-turbo/1.11.3_eslint@8.31.0:
-    resolution: {integrity: sha512-R5ftTTWQzEYaKzF5g6m/MInCU8pIN+2TLL+S50AYBr1enwUovdZmnZ1HDwFMaxIjJ8x5ah+jvAzql5IJE9VWaA==}
+  /eslint-plugin-turbo/1.12.3_eslint@8.31.0:
+    resolution: {integrity: sha512-7hEyxa+oP898EFNoxVenHlH8jtBwV1hbbIkdQWgqDcB0EmVNGVEZkYRo5Hm6BuMAjR433B+NISBJdj0bQo4/Lg==}
     peerDependencies:
       eslint: '>6.6.0'
     dependencies:
@@ -27061,7 +27103,6 @@ packages:
 
   /long/5.2.3:
     resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
-    dev: false
 
   /longest-streak/3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
@@ -30795,6 +30836,24 @@ packages:
       long: 5.2.3
     dev: false
 
+  /protobufjs/7.2.6:
+    resolution: {integrity: sha512-dgJaEDDL6x8ASUZ1YqWciTRrdOuYNzoOf27oHNfdyvKqHr5i0FV7FSLU+aIeFjyFgVxrpTOtQUi0BLLBymZaBw==}
+    engines: {node: '>=12.0.0'}
+    requiresBuild: true
+    dependencies:
+      '@protobufjs/aspromise': 1.1.2
+      '@protobufjs/base64': 1.1.2
+      '@protobufjs/codegen': 2.0.4
+      '@protobufjs/eventemitter': 1.1.0
+      '@protobufjs/fetch': 1.1.0
+      '@protobufjs/float': 1.0.2
+      '@protobufjs/inquire': 1.1.0
+      '@protobufjs/path': 1.1.2
+      '@protobufjs/pool': 1.1.0
+      '@protobufjs/utf8': 1.1.0
+      '@types/node': 20.6.0
+      long: 5.2.3
+
   /proxy-addr/2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
     engines: {node: '>= 0.10'}
@@ -32054,7 +32113,7 @@ packages:
     resolution: {integrity: sha512-iMDbmAWtfU+MHpxt/I5iWI7cY6YVEZUQ3MBgPQ++XD1PELuJHIl82xBmObyP2KyQmkNB2dsqF7seoQQiAn5yDQ==}
     hasBin: true
     dependencies:
-      is-core-module: 2.11.0
+      is-core-module: 2.13.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
@@ -34242,13 +34301,46 @@ packages:
     dependencies:
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 29.6.2_@types+node@16.18.11
+      jest: 29.6.2_@types+node@18.15.13
       jest-util: 29.6.2
       json5: 2.2.3
       lodash.memoize: 4.1.2
       make-error: 1.3.6
       semver: 7.5.4
       typescript: 5.3.2
+      yargs-parser: 21.1.1
+    dev: true
+
+  /ts-jest/29.1.1_5rpxlvaikdwu64qu6f72wnb6nm:
+    resolution: {integrity: sha512-D6xjnnbP17cC85nliwGiL+tpoKN0StpgE0TeOjXQTU6MVCfsB4v7aW05CgQ/1OywGb0x/oy9hHFnN+sczTiRaA==}
+    engines: {node: ^14.15.0 || ^16.10.0 || >=18.0.0}
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '>=7.0.0-beta.0 <8'
+      '@jest/types': ^29.0.0
+      babel-jest: ^29.0.0
+      esbuild: '*'
+      jest: ^29.0.0
+      typescript: '>=4.3 <6'
+    peerDependenciesMeta:
+      '@babel/core':
+        optional: true
+      '@jest/types':
+        optional: true
+      babel-jest:
+        optional: true
+      esbuild:
+        optional: true
+    dependencies:
+      bs-logger: 0.2.6
+      fast-json-stable-stringify: 2.1.0
+      jest: 29.6.2_@types+node@16.18.11
+      jest-util: 29.6.2
+      json5: 2.2.3
+      lodash.memoize: 4.1.2
+      make-error: 1.3.6
+      semver: 7.5.4
+      typescript: 5.3.3
       yargs-parser: 21.1.1
     dev: true
 
@@ -34402,6 +34494,29 @@ packages:
       typescript: 5.1.6
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
+    dev: true
+
+  /ts-poet/6.6.0:
+    resolution: {integrity: sha512-4vEH/wkhcjRPFOdBwIh9ItO6jOoumVLRF4aABDX5JSNEubSqwOulihxQPqai+OkuygJm3WYMInxXQX4QwVNMuw==}
+    dependencies:
+      dprint-node: 1.0.8
+    dev: true
+
+  /ts-proto-descriptors/1.15.0:
+    resolution: {integrity: sha512-TYyJ7+H+7Jsqawdv+mfsEpZPTIj9siDHS6EMCzG/z3b/PZiphsX+mWtqFfFVe5/N0Th6V3elK9lQqjnrgTOfrg==}
+    dependencies:
+      long: 5.2.3
+      protobufjs: 7.2.6
+    dev: true
+
+  /ts-proto/1.167.3:
+    resolution: {integrity: sha512-quBKTeIgqhTGKXl5JN7HHZjLwrdMaNIoQ0+X11PqNLVRqTlnEzfiCUXM6HOW4pZa6PD5+qSyKOEGaTa3kS7Glg==}
+    hasBin: true
+    dependencies:
+      case-anything: 2.1.13
+      protobufjs: 7.2.6
+      ts-poet: 6.6.0
+      ts-proto-descriptors: 1.15.0
     dev: true
 
   /tsafe/1.4.1:
@@ -34630,6 +34745,46 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - ts-node
+    patched: true
+
+  /tsup/8.0.1_a5ztaafw5l4qfghy2hjjuynb34_typescript@5.3.3:
+    resolution: {integrity: sha512-hvW7gUSG96j53ZTSlT4j/KL0q1Q2l6TqGBFc6/mu/L46IoNWqLLUzLRLP1R8Q7xrJTmkDxxDoojV5uCVs1sVOg==}
+    engines: {node: '>=18'}
+    hasBin: true
+    peerDependencies:
+      '@microsoft/api-extractor': ^7.36.0
+      '@swc/core': ^1
+      postcss: ^8.4.12
+      typescript: '>=4.5.0'
+    peerDependenciesMeta:
+      '@microsoft/api-extractor':
+        optional: true
+      '@swc/core':
+        optional: true
+      postcss:
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      bundle-require: 4.0.1_esbuild@0.19.11
+      cac: 6.7.14
+      chokidar: 3.5.3
+      debug: 4.3.4
+      esbuild: 0.19.11
+      execa: 5.1.1
+      globby: 11.1.0
+      joycon: 3.1.1
+      postcss-load-config: 4.0.1
+      resolve-from: 5.0.0
+      rollup: 4.6.1
+      source-map: 0.8.0-beta.0
+      sucrase: 3.32.0
+      tree-kill: 1.2.2
+      typescript: 5.3.3
+    transitivePeerDependencies:
+      - supports-color
+      - ts-node
+    dev: true
     patched: true
 
   /tsutils/3.21.0:
