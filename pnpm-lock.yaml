@@ -1067,6 +1067,7 @@ importers:
       '@opentelemetry/exporter-logs-otlp-http': ^0.48.0
       '@opentelemetry/exporter-trace-otlp-http': ^0.48.0
       '@opentelemetry/instrumentation': ^0.48.0
+      '@opentelemetry/instrumentation-fetch': ^0.48.0
       '@opentelemetry/instrumentation-http': ^0.48.0
       '@opentelemetry/resources': ^1.21.0
       '@opentelemetry/sdk-logs': ^0.48.0
@@ -1094,6 +1095,7 @@ importers:
       '@opentelemetry/exporter-logs-otlp-http': 0.48.0_@opentelemetry+api@1.7.0
       '@opentelemetry/exporter-trace-otlp-http': 0.48.0_@opentelemetry+api@1.7.0
       '@opentelemetry/instrumentation': 0.48.0_@opentelemetry+api@1.7.0
+      '@opentelemetry/instrumentation-fetch': 0.48.0_@opentelemetry+api@1.7.0
       '@opentelemetry/instrumentation-http': 0.48.0_@opentelemetry+api@1.7.0
       '@opentelemetry/resources': 1.21.0_@opentelemetry+api@1.7.0
       '@opentelemetry/sdk-logs': 0.48.0_wj3rtarwgmsxddfed6zfae5bhe
